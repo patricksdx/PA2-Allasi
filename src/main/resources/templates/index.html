@@ -1,22 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Login Fitness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/heroicons@2.0.16/dist/outline.js"></script>
 </head>
-<body>
-    <h2>Login de Usuario</h2>
+<body class="bg-gradient-to-r from-[#a9d3ce] via-white to-[#648ca4] flex items-center justify-center min-h-screen">
+  <div class="bg-white rounded-3xl shadow-lg flex w-full max-w-4xl overflow-hidden">
 
-    <div th:if="${error}" style="color:red;">
+    <div class="w-1/2 bg-white p-10 flex flex-col justify-center items-center">
+	  <img th:src="@{/img/gatito.png}" alt="Gatito" class="mx-auto mb-4 w-26 h-24 object-cover rounded-full border-4 border-[#a9d3ce]">
+	  <h2 class="text-3xl font-bold text-[#283e54] mb-4">Hi! Welcome to Fitness</h2>
+	  <p class="text-[#283e54] text-center mb-4">You're one step away from starting this experience, just log in.</p>
+	</div>
+
+    <div class="w-1/2 bg-[#f9f9f9] p-10">
+      <h2 class="text-2xl font-bold text-[#283e54] mb-2">Sign In</h2>
+      <p class="text-sm text-[#283e54] mb-6">Enter your account</p>
+      
+      <div th:if="${error}" class="text-red-500 mb-4">
         <p th:text="${error}"></p>
-    </div>
+      </div>
 
-    <form th:action="@{/usuario/validarUsuario}" method="post">
-        <label>Correo:</label>
-        <input type="email" name="correo" required /><br/>
-        <label>Clave:</label>
-        <input type="password" name="password" required /><br/>
-        <button type="submit">Ingresar</button>
-    </form>
+      <form th:action="@{/usuario/validarUsuario}" method="post" class="space-y-4">
+        <div>
+          <label for="correo" class="block text-sm font-medium text-[#283e54]">Email</label>
+          <input type="email" id="correo" name="correo" class="mt-1 w-full p-2 border border-[#a9d3ce] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#648ca4]" required>
+        </div>
+        <div class="relative">
+          <label for="password" class="block text-sm font-medium text-[#283e54]">Password</label>
+          <input type="password" id="password" name="password" class="mt-1 w-full p-2 border border-[#a9d3ce] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#648ca4]" required>
+          <span onclick="togglePasswordVisibility()" id="eye-icon" class="absolute top-9 right-3 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#648ca4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.974 9.974 0 012.697-4.281m2.415-2.416A9.974 9.974 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.974 9.974 0 01-2.697 4.281M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </span>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="terms" class="mr-2 accent-[#648ca4]">
+          <label for="terms" class="text-sm text-[#283e54]">Remember me</label>
+        </div>
+        <button type="submit" class="w-full bg-[#a9d3ce] text-[#283e54] py-2 rounded-lg hover:bg-[#648ca4] hover:text-white transition duration-300 ease-in-out">Sign In</button>
+      </form>
+      <p class="text-sm text-center text-[#283e54] mt-4">Don't have an account? <a href="#" class="text-[#648ca4] hover:text-gray-500">Sign Up</a></p>
+    </div>
+  </div>
+  
+      <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("password");
+            const eyeIcon = document.getElementById("eye-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#648ca4]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" /></svg>`;
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#648ca4]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.974 9.974 0 012.697-4.281m2.415-2.416A9.974 9.974 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.974 9.974 0 01-2.697 4.281M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>`;
+            }
+        }
+    </script>
 </body>
 </html>

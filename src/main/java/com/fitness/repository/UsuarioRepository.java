@@ -8,4 +8,5 @@ import com.fitness.entity.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	Usuario findByCorreoAndPassword(String correo, String password);
+	Usuario findByCorreo(String correo);
 }
